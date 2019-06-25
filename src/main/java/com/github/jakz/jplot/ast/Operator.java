@@ -9,12 +9,14 @@ public class Operator
 {
   public final BiFunction<Environment, Expression[], Expression> function;
   public final int args;
+  public final boolean commutative;
   public final String name;
   
-  public Operator(String name, int args, BiFunction<Environment, Expression[], Expression> function)
+  public Operator(String name, int args, boolean commutative, BiFunction<Environment, Expression[], Expression> function)
   {
     this.function = function;
     this.args = args;
+    this.commutative = commutative;
     this.name = name;
   }
   

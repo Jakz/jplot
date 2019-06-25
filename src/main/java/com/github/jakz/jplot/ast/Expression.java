@@ -6,8 +6,11 @@ import com.github.jakz.jplot.cas.Environment;
 
 public interface Expression
 {
+
   Value evaluate(Environment env);
+  void accept(Visitor visitor);
+  Expression transform(Transformer transformer);
   
   public static Value integral(long value) { return new Value(value); }
-  public static Expression sum(Expression o1, Expression o2) { return new Operation(Operators.ADDITION, o1, o2); }
+  public static Expression sum(Expression... operands) { return new Operation(Operators.ADDITION, operands); }
 }

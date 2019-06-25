@@ -27,4 +27,16 @@ public class Value implements Expression
   {
     return value;
   }
+  
+  @Override public Expression transform(Transformer transformer)
+  {
+    return transformer.apply(this, new Expression[0]);
+  }
+
+  @Override public void accept(Visitor visitor)
+  {
+    visitor.enter(this);
+    visitor.doVisit(this);
+    visitor.leave(this);
+  }
 }
