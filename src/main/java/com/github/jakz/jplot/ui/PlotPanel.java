@@ -21,7 +21,7 @@ public class PlotPanel extends JPanel
   DoubleUnaryOperator horizontal, vertical;
   DoubleUnaryOperator function;
   
-  private float backingBufferScale = 4;
+  private float backingBufferScale = 2;
   private int pixelSize = (int)backingBufferScale;
   private BufferedImage image;
   
@@ -32,10 +32,10 @@ public class PlotPanel extends JPanel
     
     setPreferredSize(new Dimension(w, h));
     
-    horizontal = f -> f * 10.0 - 5.0;
-    vertical = f -> (f + 5.0) / 10.0;
+    horizontal = f -> f * 20.0 - 10.0;
+    vertical = f -> (f + 10.0) / 20.0;
     
-    function = x -> x*x;
+    function = x -> (6*x*x - 3*x + 4) / (2*x*x - 8);
     
     image = new BufferedImage(w*4, h*4, BufferedImage.TYPE_INT_ARGB);
     
