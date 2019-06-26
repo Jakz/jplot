@@ -1,10 +1,15 @@
 package com.github.jakz.jplot;
 
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.jlatexmath.TeXIcon;
+
 import com.github.jakz.jplot.ast.Expression;
 import com.github.jakz.jplot.ast.PrintVisitor;
 import com.github.jakz.jplot.ast.Root;
 import com.github.jakz.jplot.ast.Value;
 import com.github.jakz.jplot.ast.simplification.CommutativeOperatorLeveler;
+import com.github.jakz.jplot.ui.ExpressionPanel;
 import com.github.jakz.jplot.ui.PlotPanel;
 import com.pixbits.lib.ui.UIUtils;
 
@@ -19,11 +24,13 @@ public class App
     e.accept(new PrintVisitor());
     
     System.out.println(v.value());
-    
-    
-    /*var frame = UIUtils.buildFrame(new PlotPanel(), "Plot Panel");
+
+    //var frame = UIUtils.buildFrame(new PlotPanel(), "Plot Panel");
+    var frame = UIUtils.buildFrame(new ExpressionPanel(), "Panel");
+    frame.panel().setFormula("f(x) = x^2");
+    frame.pack();
     frame.centerOnScreen();
     frame.exitOnClose();
-    frame.setVisible(true);*/
+    frame.setVisible(true);
   }
 }
