@@ -8,6 +8,14 @@ public class Visitor
   public void visit(Expression expression) { }
   public void visit(Operation operator) { }
   public void visit(Value value) { }
+  public void visit(Variable variable) { }
+  
+  public void doVisit(Polynomial polynomial)
+  {
+    visit((Expression)polynomial);
+    visit(polynomial);
+  }
+  
   
   public void doVisit(Operation operation)
   { 
@@ -16,6 +24,12 @@ public class Visitor
   }
   
   public void doVisit(Value value)
+  {
+    visit((Expression)value);
+    visit(value);
+  }
+  
+  public void doVisit(Variable value)
   {
     visit((Expression)value);
     visit(value);

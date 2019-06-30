@@ -3,6 +3,7 @@ package com.github.jakz.jplot.ast;
 import com.github.jakz.jplot.cas.Environment;
 
 // http://www.math.wpi.edu/IQP/BVCalcHist/calc5.html#_Toc407004388
+// https://en.wikipedia.org/wiki/Rewriting
 
 public interface Expression
 {

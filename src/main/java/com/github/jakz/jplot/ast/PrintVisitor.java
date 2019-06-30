@@ -23,4 +23,9 @@ public class PrintVisitor extends Visitor
   {
     System.out.printf("%" + indent + "s%s\n", "", operation.operator().name);
   }
+  
+  @Override public void visit(Variable variable)
+  {
+    System.out.printf("%" + indent + "s%s\n", "", variable.name());
+  }
 }

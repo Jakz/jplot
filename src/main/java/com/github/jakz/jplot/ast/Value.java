@@ -35,7 +35,7 @@ public class Value implements Expression
   
   @Override public Expression transform(Transformer transformer)
   {
-    return transformer.apply(this, new Expression[0]);
+    return transformer.apply(this);
   }
 
   @Override public void accept(Visitor visitor)
