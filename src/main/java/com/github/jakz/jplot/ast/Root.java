@@ -10,6 +10,12 @@ public class Root implements Expression
   {
     this.expression = expression;
   }
+  
+  @Override
+  public String toTeX()
+  {
+    return expression.toTeX();
+  }
 
   @Override
   public Value evaluate(Environment env)

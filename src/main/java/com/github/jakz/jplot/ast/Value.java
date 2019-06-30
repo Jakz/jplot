@@ -28,6 +28,11 @@ public class Value implements Expression
     return value;
   }
   
+  @Override public String toTeX()
+  {
+    return value.toString();
+  }
+  
   @Override public Expression transform(Transformer transformer)
   {
     return transformer.apply(this, new Expression[0]);

@@ -23,18 +23,22 @@ public class CommutativeOperatorLeveler implements Transformer
     if (!operator.commutative)
       return parent;
     
+    System.out.println("Leveling "+parent.toTeX());
+    
     List<Expression> operands = new ArrayList<>();
     
     for (Expression operand : children)
     {
       if (operand instanceof Operation)
-      {
+      { 
         Operation inner = (Operation)operand;
         
         if (inner.operator().equals(operator))
         {
           operands.addAll(Arrays.asList(inner.operands()));
         }
+        else
+          operands.add(operand);
       }
       else
         operands.add(operand);

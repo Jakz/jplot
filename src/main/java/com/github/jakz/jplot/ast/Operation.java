@@ -22,6 +22,11 @@ public class Operation implements Expression
   public Operator operator() { return operator; }
   public Expression[] operands() { return operands; }
   
+  @Override public String toTeX()
+  {
+    return operator.toTeX(operands);
+  }
+  
   @Override public Value evaluate(Environment env)
   {
     return operator.apply(env, operands).evaluate(env);
