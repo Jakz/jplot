@@ -26,7 +26,23 @@
           <target>${jdk.version}</target>
         </configuration>
       </plugin>
-    </plugins>
+      <plugin>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-maven-plugin</artifactId>
+        <version>4.7</version>
+        <executions>
+          <execution>
+            <id>antlr</id>
+            <goals>
+              <goal>antlr4</goal>
+            </goals>
+            <configuration>
+              <visitor>true</visitor>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>    
   </build>
 
   <dependencies>
@@ -41,11 +57,11 @@
       <artifactId>lib</artifactId>
       <version>0.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.jparsec</groupId>
-      <artifactId>jparsec</artifactId>
-      <version>3.1</version>
-    </dependency>
+		<dependency>
+		    <groupId>org.antlr</groupId>
+		    <artifactId>antlr4-runtime</artifactId>
+		    <version>4.7.2</version>
+		</dependency>
 		<dependency>
 		  <groupId>org.scilab.forge</groupId>
 		  <artifactId>jlatexmath</artifactId>

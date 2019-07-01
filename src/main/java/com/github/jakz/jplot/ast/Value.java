@@ -44,4 +44,9 @@ public class Value implements Expression
     visitor.doVisit(this);
     visitor.leave(this);
   }
+  
+  @Override public boolean equals(Object other)
+  {
+    return other instanceof Value && ((Value)other).value.equals(value);
+  }
 }

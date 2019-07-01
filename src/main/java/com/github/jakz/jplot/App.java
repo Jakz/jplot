@@ -15,12 +15,11 @@ public class App
 {
   public static void main(String[] args)
   {
-    Polynomial polynomial = new Polynomial();
-    
-    polynomial.addTerm(new Variable("x"), new Value(2), new Value(5));
-    
-    //Expression e = new Root(Expression.multiplication(Expression.negation(Expression.integral(10)), Expression.integral(20)));
-    Expression e = new Root(polynomial);
+    //Polynomial polynomial = new Polynomial();
+    //polynomial.addTerm(new Variable("x"), new Value(2), new Value(5));
+    //Expression e = new Root(polynomial);
+
+    Expression e = new Root(Expression.multiplication(Expression.negation(Expression.integral(10)), Expression.integral(20)));
     Value v = e.evaluate(null);
     
     e.transform(new NegationToMultiplication());

@@ -7,7 +7,7 @@ import com.github.jakz.jplot.cas.Environment;
 
 public class Polynomial implements Expression
 {
-  private class Term
+  public static class Term
   {
     Variable variable;
     Value exponent; //TODO: should become expression
@@ -26,6 +26,11 @@ public class Polynomial implements Expression
   public Polynomial()
   {
     terms = new ArrayList<>();
+  }
+  
+  public List<Term> terms()
+  {
+    return terms;
   }
   
   public void addTerm(Variable variable, Value exponent, Expression coefficient)
