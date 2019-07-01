@@ -1,5 +1,8 @@
 package com.github.jakz.jplot.ast;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Function;
 
 import com.github.jakz.jplot.cas.Environment;
@@ -8,15 +11,20 @@ public class Operation implements Expression
 {
   private Operator operator;
   private Expression[] operands;
-  
+
   public Operation(Operator operator, Expression... operands)
   {
+    this.operator = Objects.requireNonNull(operator);
+    this.operands = operands;
+    
     //TODO: enhance for operators which allows n+ operands (eg commutative sum)
     if (operands.length < operator.args)
       throw new IllegalArgumentException(String.format("Call to operator %s must have %d arguments but has %d instead", operator.name, operator.args, operands.length));
-
-    this.operator = operator;
-    this.operands = operands;
+  }
+  
+  public Operation(Operator operator, Collection<Expression> operands)
+  {
+    this(operator, operands.toArray(new Expression[operands.size()]));
   }
   
   public Operator operator() { return operator; }
@@ -47,5 +55,16 @@ public class Operation implements Expression
     for (Expression operand : operands) 
       operand.accept(visitor);
     visitor.leave(this);
+  }
+  
+  @Override public boolean equals(Object other)
+  {
+    if (other instanceof Operation)
+    {
+      Operation op = (Operation)other;
+      return op.operator.equals(operator) && Arrays.equals(op.operands, operands);
+    }
+    else
+      return false;
   }
 }

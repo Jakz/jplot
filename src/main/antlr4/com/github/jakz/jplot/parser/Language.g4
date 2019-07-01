@@ -1,17 +1,33 @@
 grammar Language;
 
 fragment DIGIT : [0-9];
+fragment LETTER : [a-zA-Z];
 
 start : 
-  integer
+  expression
 ;
 
-
-integer : INTEGER
+expression
+  : expression (op=('+' | '-') expression )
+  | expression (op=('*' | '/') expression )
+  | terminal
 ;
 
-INTEGER : DIGIT+
+terminal
+  : literal
+  | '(' expression ')'
 ;
+
+literal : 
+  identifier | 
+  integer 
+;
+
+identifier : WORD ;
+integer : INTEGER ;
+
+INTEGER : DIGIT+ ;
+WORD: LETTER+ ;
 
 WS : 
   . -> skip

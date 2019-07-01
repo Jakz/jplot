@@ -23,7 +23,9 @@ public interface Expression
   
   public static Value integral(long value) { return new Value(value); }
   public static Expression sum(Expression... operands) { return new Operation(Operators.ADDITION, operands); }
+  public static Expression subtraction(Expression... operands) { return new Operation(Operators.SUBTRACTION, operands); }
   public static Expression multiplication(Expression... operands) { return new Operation(Operators.MULTIPLICATION, operands); }
+  public static Expression division(Expression... operands) { return new Operation(Operators.DIVISION, operands); }
 
   public static Expression negation(Expression operand) { return new Operation(Operators.NEGATION, operand); }
 }

@@ -39,4 +39,10 @@ public class Variable implements Expression
   {
     return name;
   }
+  
+  @Override
+  public boolean equals(Object other)
+  {
+    return other instanceof Variable && ((Variable)other).name.equals(name);
+  }
 }
