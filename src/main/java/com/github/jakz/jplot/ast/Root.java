@@ -2,7 +2,7 @@ package com.github.jakz.jplot.ast;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Root implements Expression
+public class Root extends Expression
 {
   private Expression expression;
   
@@ -15,6 +15,12 @@ public class Root implements Expression
   public String toTeX()
   {
     return expression.toTeX();
+  }
+  
+  @Override
+  public String toTextual()
+  {
+    return expression.toTextual();
   }
 
   @Override

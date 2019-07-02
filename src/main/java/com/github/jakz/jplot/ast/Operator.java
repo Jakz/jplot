@@ -48,4 +48,10 @@ public class Operator
   {
     return renderer.apply(operands);
   }
+  
+  public String toTextual(Expression... operands)
+  {
+    //TODO
+    return renderer.apply(operands);
+  }
 }

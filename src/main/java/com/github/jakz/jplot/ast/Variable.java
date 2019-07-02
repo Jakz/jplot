@@ -2,7 +2,7 @@ package com.github.jakz.jplot.ast;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Variable implements Expression
+public class Variable extends Expression
 {
   private String name;
   
@@ -36,6 +36,12 @@ public class Variable implements Expression
 
   @Override
   public String toTeX()
+  {
+    return name;
+  }
+  
+  @Override
+  public String toTextual()
   {
     return name;
   }

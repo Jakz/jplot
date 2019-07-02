@@ -45,7 +45,8 @@ public class ExpressionBuilder
       if (ctx.terminal() != null)
         return visit(ctx.terminal());
       else if (ctx.expression().size() == 2)
-        return new Operation(Operators.of(ctx.op.getText()), ctx.expression().stream().map(this::visit).toArray(i -> new Expression[i]));
+        //return new Operation(Operators.of(ctx.op.getText()), ctx.expression().stream().map(this::visit).toArray(i -> new Expression[i]));
+        return new Operation(Operators.of(ctx.op.getText()), new Expression[] { visit(ctx.left), visit(ctx.right) });
       else
         throw new IllegalArgumentException("Unknown expression node");
     }

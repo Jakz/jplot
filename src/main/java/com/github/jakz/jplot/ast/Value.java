@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Value implements Expression
+public class Value extends Expression
 {
   private BigDecimal value;
   
@@ -29,6 +29,11 @@ public class Value implements Expression
   }
   
   @Override public String toTeX()
+  {
+    return value.toString();
+  }
+  
+  @Override public String toTextual()
   {
     return value.toString();
   }

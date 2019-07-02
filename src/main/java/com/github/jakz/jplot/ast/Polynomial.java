@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Polynomial implements Expression
+public class Polynomial extends Expression
 {
   public static class Term
   {
@@ -66,6 +66,12 @@ public class Polynomial implements Expression
   {
     //TODO
     return this;
+  }
+  
+  @Override public String toTextual()
+  {
+    //TODO
+    return "";
   }
 
   @Override

@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Operation implements Expression
+public class Operation extends Expression
 {
   private Operator operator;
   private Expression[] operands;
@@ -33,6 +33,11 @@ public class Operation implements Expression
   @Override public String toTeX()
   {
     return operator.toTeX(operands);
+  }
+  
+  @Override public String toTextual()
+  {
+    return operator.toTextual(operands);
   }
   
   @Override public Value evaluate(Environment env)

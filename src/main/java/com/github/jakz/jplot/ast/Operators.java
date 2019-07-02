@@ -18,7 +18,7 @@ public class Operators
   exprs -> Arrays.stream(exprs).map(Expression::toTeX).collect(Collectors.joining(" + ", "(", ")"))
   );
   
-  public static final Operator SUBTRACTION = new Operator("-", 2, true, 
+  public static final Operator SUBTRACTION = new Operator("-", 2, false, 
   (env, exprs) -> {
     return Arrays.stream(exprs)
         .reduce(
@@ -42,7 +42,7 @@ public class Operators
   exprs -> Arrays.stream(exprs).map(Expression::toTeX).collect(Collectors.joining("\\cdot", "(", ")"))
   );
   
-  public static final Operator DIVISION = new Operator("/", 2, true, 
+  public static final Operator DIVISION = new Operator("/", 2, false, 
   (env, exprs) -> {
     return Arrays.stream(exprs)
         .reduce(
@@ -54,6 +54,20 @@ public class Operators
   exprs -> Arrays.stream(exprs).map(Expression::toTeX).collect(Collectors.joining("/", "(", ")"))
   );
   
+  public static final Operator EXPONENTIATION = new Operator("^", 2, false,
+  (env, exprs) -> {
+    return Arrays.stream(exprs)
+        .reduce(
+            new Value(0), 
+            //TODO: wrong because pow only accepts int
+            (v, e) -> new Value(v.value().pow(e.evaluate(env).value().intValue())), 
+            (v1, v2) -> new Value(v1.value().pow(v2.value().intValue()))
+        );
+  },
+  exprs -> Arrays.stream(exprs).map(Expression::toTeX).collect(Collectors.joining("^", "(", ")"))  
+  );
+  
+  
   public static final Operator NEGATION = new Operator("-", 1, false,
   (env, exprs) -> new Value(exprs[0].evaluate(env).value().negate()),
   exprs -> "-" + exprs[0].toTeX()
@@ -64,7 +78,8 @@ public class Operators
       Map.entry("+", ADDITION),
       Map.entry("-", SUBTRACTION),
       Map.entry("*", MULTIPLICATION),
-      Map.entry("/", DIVISION)
+      Map.entry("/", DIVISION),
+      Map.entry("^", EXPONENTIATION)
     );
   
   public static Operator of(String mnemonic)

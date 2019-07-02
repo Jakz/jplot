@@ -8,8 +8,9 @@ start :
 ;
 
 expression
-  : expression (op=('+' | '-') expression )
-  | expression (op=('*' | '/') expression )
+  : left=expression op=('+' | '-') right=expression 
+  | left=expression op=('*' | '/') right=expression 
+  | <assoc=right> left=expression op='^' right=expression
   | terminal
 ;
 
