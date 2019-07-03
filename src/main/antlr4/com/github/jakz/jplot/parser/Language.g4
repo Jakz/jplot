@@ -1,35 +1,44 @@
 grammar Language;
 
-fragment DIGIT : [0-9];
-fragment LETTER : [a-zA-Z];
+fragment DIGIT : [0-9] ;
+fragment LETTER : [a-zA-Z] ;
+fragment GREEK_LETTER : [\u0391-\u03A9\u03B1-\u03c9] ;
 
 start : 
   expression
 ;
 
 expression
-  : left=expression op=('+' | '-') right=expression 
-  | left=expression op=('*' | '/') right=expression 
-  | <assoc=right> left=expression op='^' right=expression
+  : left=expression bop=('+' | '-') right=expression 
+  | left=expression bop=('*' | '/') right=expression 
+  | <assoc=right> left=expression bop='^' right=expression
+  | uop='-' unary=expression
   | terminal
 ;
 
 terminal
   : literal
-  | '(' expression ')'
+  | functionCall
+  | '(' pexpression=expression ')'
 ;
 
-literal : 
-  identifier | 
-  integer 
+functionCall:
+  funName=IDENTIFIER '(' args=expression* ')'
 ;
 
-identifier : WORD ;
+
+literal  
+  : IDENTIFIER 
+  | WRONG_IDENTIFIER 
+  | integer 
+;
+
 integer : INTEGER ;
 
+IDENTIFIER : (LETTER|GREEK_LETTER) (LETTER|GREEK_LETTER|DIGIT|'_')* ;
 INTEGER : DIGIT+ ;
-WORD: LETTER+ ;
 
-WS : 
-  . -> skip
+WRONG_IDENTIFIER : (LETTER|GREEK_LETTER|DIGIT|'_')* ;
+
+WS : . -> skip
 ;

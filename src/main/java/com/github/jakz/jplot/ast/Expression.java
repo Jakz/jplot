@@ -28,7 +28,8 @@ public abstract class Expression
   
   public static Value integral(long value) { return new Value(value); }
   public static Value num(long value) { return new Value(value); }
-
+  public static Variable var(String name) { return new Variable(name); }
+  public static Expression fun(String name, Expression... operands) { return new Operation(Operators.of(name), operands); }
   
   public static Expression addition(Expression... operands) { return new Operation(Operators.ADDITION, operands); }
   public static Expression subtraction(Expression... operands) { return new Operation(Operators.SUBTRACTION, operands); }
@@ -39,6 +40,8 @@ public abstract class Expression
   public static Expression sub(Expression... operands) { return subtraction(operands); }
   public static Expression mul(Expression... operands) { return multiplication(operands); }
   public static Expression div(Expression... operands) { return division(operands); }
+  public static Expression neg(Expression operand) { return negation(operand); }
+
   
   public static Expression exp(Expression lhs, Expression rhs) { return new Operation(Operators.EXPONENTIATION, lhs, rhs); }
   public static Expression negation(Expression operand) { return new Operation(Operators.NEGATION, operand); }

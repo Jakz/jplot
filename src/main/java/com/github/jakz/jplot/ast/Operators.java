@@ -73,13 +73,21 @@ public class Operators
   exprs -> "-" + exprs[0].toTeX()
   );
   
+  public static class Trigonometry
+  {
+    public static final Operator SIN = new Operator("sin", 1, false, (env, exprs) -> { return new Value(exprs[0].evaluate(env).value().doubleValue()); }, e -> String.format("sin(%s)", e[0].toTeX())); 
+
+  }
+  
   private static final Map<String, Operator> operators =
     Map.ofEntries(
       Map.entry("+", ADDITION),
       Map.entry("-", SUBTRACTION),
       Map.entry("*", MULTIPLICATION),
       Map.entry("/", DIVISION),
-      Map.entry("^", EXPONENTIATION)
+      Map.entry("^", EXPONENTIATION),
+      
+      Map.entry("sin", Trigonometry.SIN)
     );
   
   public static Operator of(String mnemonic)

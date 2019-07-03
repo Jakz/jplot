@@ -4,10 +4,12 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import com.github.jakz.jplot.ast.Expression;
 import com.github.jakz.jplot.ast.Operation;
+import com.github.jakz.jplot.ast.Operator;
 import com.github.jakz.jplot.ast.Operators;
 import com.github.jakz.jplot.ast.Value;
 import com.github.jakz.jplot.ast.Variable;
@@ -21,22 +23,50 @@ public class ExpressionBuilder
     {
       return new Value(Integer.valueOf(ctx.INTEGER().getText()));
     }
+        
+    @Override
+    public Expression visitLiteral(LanguageParser.LiteralContext ctx)
+    {
+      if (ctx.integer() != null)
+        return visit(ctx.integer());
+      else if (ctx.IDENTIFIER() != null)
+        return new Variable(ctx.getText());
+      else if (ctx.WRONG_IDENTIFIER() != null)
+        throw new ParseException("Invalid identifier: "+ctx.getText());
+      else
+        throw new ParseException("Invalid literal parse node");
+    }
     
     @Override
-    public Variable visitIdentifier(LanguageParser.IdentifierContext ctx)
+    public Expression visitFunctionCall(LanguageParser.FunctionCallContext ctx)
     {
-      return new Variable(ctx.WORD().getText());
+      Operator op = null;
+      
+      try
+      {
+        op = Operators.of(ctx.funName.getText());
+      }
+      catch (IllegalArgumentException e)
+      {
+        throw new ParseException("Unknown function: "+ctx.funName.getText());
+      }
+
+      Expression[] args = ctx.args.expression().stream().map(this::visit).toArray(i -> new Expression[i]);
+      
+      return new Operation(op, args);
     }
     
     @Override
     public Expression visitTerminal(LanguageParser.TerminalContext ctx)
     {
-      if (ctx.expression() != null)
-        return visit(ctx.expression());
+      if (ctx.pexpression != null)
+        return visit(ctx.pexpression);
+      else if (ctx.functionCall() != null)
+        return visit(ctx.functionCall());
       else if (ctx.literal() != null)
         return visit(ctx.literal());
       else
-        throw new IllegalArgumentException("Unknown terminal node");
+        throw new ParseException("Invalid terminal parse node");
     }
     
     @Override
@@ -44,11 +74,13 @@ public class ExpressionBuilder
     {      
       if (ctx.terminal() != null)
         return visit(ctx.terminal());
-      else if (ctx.expression().size() == 2)
+      else if (ctx.bop != null)
         //return new Operation(Operators.of(ctx.op.getText()), ctx.expression().stream().map(this::visit).toArray(i -> new Expression[i]));
-        return new Operation(Operators.of(ctx.op.getText()), new Expression[] { visit(ctx.left), visit(ctx.right) });
+        return new Operation(Operators.of(ctx.bop.getText()), new Expression[] { visit(ctx.left), visit(ctx.right) });
+      else if (ctx.uop != null)
+        return new Operation(Operators.NEGATION, new Expression[] { visit(ctx.expression(0)) });
       else
-        throw new IllegalArgumentException("Unknown expression node");
+        throw new ParseException("Invalid expression parse node");
     }
     
     @Override
@@ -58,11 +90,29 @@ public class ExpressionBuilder
     }
   }
   
-  public static Expression of(String input)
+  private static Expression ofc(String input, boolean debug)
   {
+    if (debug)
+      System.out.println("Parsing "+input);
+    
     CharStream stream = CharStreams.fromString(input);
     LanguageLexer lexer = new LanguageLexer(stream);
     CommonTokenStream tstream = new CommonTokenStream(lexer);
+    
+    if (debug)
+    {
+      tstream.fill();
+      
+      for (Token t : tstream.getTokens())
+      {
+        String symbolicName = LanguageLexer.VOCABULARY.getSymbolicName(t.getType());
+        String literalName = LanguageLexer.VOCABULARY.getLiteralName(t.getType());
+        System.out.printf("  %-20s '%s'\n",
+                symbolicName == null ? literalName : symbolicName,
+                t.getText().replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t"));
+      }
+    }
+    
     LanguageParser parser = new LanguageParser(tstream);
    
     
@@ -70,5 +120,15 @@ public class ExpressionBuilder
     
     
     return new Visitor().visit(context);
+  }
+  
+  public static Expression of(String input)
+  {
+    return ofc(input, false);
+  }
+  
+  public static Expression ofd(String input)
+  {
+    return ofc(input, true);
   }
 }

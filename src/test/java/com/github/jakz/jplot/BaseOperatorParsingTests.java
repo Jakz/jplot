@@ -1,4 +1,4 @@
-package com.github.jakz.jplot.parser;
+package com.github.jakz.jplot;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,22 +11,15 @@ import com.github.jakz.jplot.ast.Variable;
 import static com.github.jakz.jplot.ast.Expression.*;
 import static com.github.jakz.jplot.parser.ExpressionBuilder.of;
 
-public class LiteralTest
-{
+public class BaseOperatorParsingTests
+{  
   @Test
-  public void parseIntegralToValue()
-  {    
-    assertEquals(new Value(5), of("5"));
-    assertEquals(new Value(123), of("123"));
-    assertEquals(new Value(23), of("0023"));
-    assertEquals(new Value(0), of("0"));
-  }
-  
-  @Test
-  public void parseIdentifier()
+  public void testUnaryMinusExpressions()
   {
-    assertEquals(new Variable("x"), of("x"));
-    assertEquals(new Variable("foo"), of("foo"));
+    assertEquals(neg(num(5)), of("-5"));
+    assertEquals(neg(neg(num(5))), of("- -5"));
+    assertEquals(sub(num(2), var("b")), of("2-b"));
+    assertEquals(sub(num(2), neg(var("b"))), of("2 - -b"));
   }
   
   @Test

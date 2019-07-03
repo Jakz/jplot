@@ -18,6 +18,11 @@ public class Value extends Expression
     this.value = BigDecimal.valueOf(value);
   }
   
+  public Value(double value)
+  {
+    this.value = BigDecimal.valueOf(value);
+  }
+  
   public Value evaluate(Environment env)
   {
     return this;
