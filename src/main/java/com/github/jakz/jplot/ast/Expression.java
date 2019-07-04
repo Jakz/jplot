@@ -7,10 +7,13 @@ import com.github.jakz.jplot.cas.Environment;
 
 public abstract class Expression
 {
-  public abstract Value evaluate(Environment env);
+  public abstract Type type();
+  
+  public abstract Expression evaluate(Environment env);
   public abstract void accept(Visitor visitor);
   public abstract Expression transform(Transformer transformer);
-  
+  public abstract Expression dupe();
+    
   public abstract String toTeX();
   public abstract String toTextual();
   
@@ -21,13 +24,34 @@ public abstract class Expression
     return null;
   }
   
+  public Number number()
+  {
+    if (this instanceof Number)
+      return ((Number)this).number();
+    return null;
+  }
+
+  public Expression strip()
+  {
+    if (this instanceof Root)
+      return ((Root)this).expression();
+    else
+      return this;
+  }
+  
   public String toString()
   {
     return toTextual();
   }
   
-  public static Value integral(long value) { return new Value(value); }
-  public static Value num(long value) { return new Value(value); }
+  public Expression transformToNew(Transformer transformer)
+  {
+    Expression duplicate = dupe();
+    return duplicate.transform(transformer);
+  }
+  
+  public static Number integral(long value) { return new Number(value); }
+  public static Number num(long value) { return new Number(value); }
   public static Variable var(String name) { return new Variable(name); }
   public static Expression fun(String name, Expression... operands) { return new Operation(Operators.of(name), operands); }
   

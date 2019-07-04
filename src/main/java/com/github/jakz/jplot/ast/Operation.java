@@ -30,6 +30,16 @@ public class Operation extends Expression
   public Operator operator() { return operator; }
   public Expression[] operands() { return operands; }
   
+  @Override public Expression dupe()
+  {
+    return new Operation(operator, Arrays.stream(operands).map(Expression::dupe).toArray(i -> new Expression[i]));
+  }
+  
+  @Override public Type type()
+  {
+    return operator.type();
+  }
+  
   @Override public String toTeX()
   {
     return operator.toTeX(operands);
@@ -40,7 +50,7 @@ public class Operation extends Expression
     return operator.toTextual(operands);
   }
   
-  @Override public Value evaluate(Environment env)
+  @Override public Expression evaluate(Environment env)
   {
     return operator.apply(env, operands).evaluate(env);
   }
@@ -63,7 +73,7 @@ public class Operation extends Expression
   }
   
   @Override public boolean equals(Object other)
-  {
+  {  
     if (other instanceof Operation)
     {
       Operation op = (Operation)other;

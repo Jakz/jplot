@@ -10,10 +10,10 @@ public class Polynomial extends Expression
   public static class Term
   {
     Variable variable;
-    Value exponent; //TODO: should become expression
+    Number exponent; //TODO: should become expression
     Expression coefficient;
     
-    public Term(Variable variable, Value exponent, Expression coefficient)
+    public Term(Variable variable, Number exponent, Expression coefficient)
     {
       this.variable = variable;
       this.exponent = exponent;
@@ -28,20 +28,32 @@ public class Polynomial extends Expression
     terms = new ArrayList<>();
   }
   
+  public Expression dupe()
+  {
+    //TODO
+    return null;
+  }
+  
+  @Override
+  public Type type()
+  {
+    return Type.NUMBER;
+  }
+  
   public List<Term> terms()
   {
     return terms;
   }
   
-  public void addTerm(Variable variable, Value exponent, Expression coefficient)
+  public void addTerm(Variable variable, Number exponent, Expression coefficient)
   {
     terms.add(new Term(variable, exponent, coefficient));
   }
   
   @Override
-  public Value evaluate(Environment env) {
+  public Number evaluate(Environment env) {
     // TODO Auto-generated method stub
-    return new Value(0);
+    return new Number(0);
   }
 
   @Override

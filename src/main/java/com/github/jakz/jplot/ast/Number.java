@@ -4,26 +4,33 @@ import java.math.BigDecimal;
 
 import com.github.jakz.jplot.cas.Environment;
 
-public class Value extends Expression
+public class Number extends Expression
 {
   private BigDecimal value;
   
-  public Value(BigDecimal value)
+  public Number(BigDecimal value)
   {
     this.value = value;
   }
   
-  public Value(long value)
+  public Number(long value)
   {
     this.value = BigDecimal.valueOf(value);
   }
   
-  public Value(double value)
+  public Number(double value)
   {
     this.value = BigDecimal.valueOf(value);
   }
   
-  public Value evaluate(Environment env)
+  @Override
+  public Type type()
+  {
+    return Type.NUMBER;
+  }
+
+  @Override
+  public Expression evaluate(Environment env)
   {
     return this;
   }
@@ -31,6 +38,17 @@ public class Value extends Expression
   public BigDecimal value()
   {
     return value;
+  }
+  
+  public double dvalue()
+  {
+    return value.doubleValue();
+  }
+  
+  @Override
+  public Expression dupe()
+  {
+    return new Number(value);
   }
   
   @Override public String toTeX()
@@ -57,6 +75,6 @@ public class Value extends Expression
   
   @Override public boolean equals(Object other)
   {
-    return other instanceof Value && ((Value)other).value.equals(value);
+    return other instanceof Number && ((Number)other).value.equals(value);
   }
 }

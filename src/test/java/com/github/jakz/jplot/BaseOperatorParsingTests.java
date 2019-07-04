@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.github.jakz.jplot.ast.Expression;
-import com.github.jakz.jplot.ast.Value;
+import com.github.jakz.jplot.ast.Number;
 import com.github.jakz.jplot.ast.Variable;
 
 import static com.github.jakz.jplot.ast.Expression.*;

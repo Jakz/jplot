@@ -4,7 +4,7 @@ import com.github.jakz.jplot.ast.Expression;
 import com.github.jakz.jplot.ast.Polynomial;
 import com.github.jakz.jplot.ast.PrintVisitor;
 import com.github.jakz.jplot.ast.Root;
-import com.github.jakz.jplot.ast.Value;
+import com.github.jakz.jplot.ast.Number;
 import com.github.jakz.jplot.ast.Variable;
 import com.github.jakz.jplot.ast.simplification.CommutativeOperatorLeveler;
 import com.github.jakz.jplot.ast.simplification.NegationToMultiplication;
@@ -20,12 +20,11 @@ public class App
     //Expression e = new Root(polynomial);
 
     Expression e = new Root(Expression.multiplication(Expression.negation(Expression.integral(10)), Expression.integral(20)));
-    Value v = e.evaluate(null);
     
     e.transform(new NegationToMultiplication());
     e.accept(new PrintVisitor());
     
-    System.out.println(v.value());
+    //System.out.println(v.value());
 
     //var frame = UIUtils.buildFrame(new PlotPanel(), "Plot Panel");
     var frame = UIUtils.buildFrame(new ExpressionPanel(), "Panel");

@@ -10,8 +10,15 @@ import static com.github.jakz.jplot.parser.ExpressionBuilder.*;
 public class FunctionCallParsingTests
 {
   @Test
-  public void testSin()
+  public void testOneArgument()
   {
-    assertEquals(fun("sin", num(10)), ofd("sin(10)"));
+    assertEquals(fun("sin", num(10)), of("sin(10)"));
   }
+  
+  @Test
+  public void testTwoArguments()
+  {
+    assertEquals(fun("atan2", var("x"), num(5)), of("atan2(x,5)"));
+  }
+  
 }

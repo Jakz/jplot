@@ -23,7 +23,7 @@ terminal
 ;
 
 functionCall:
-  funName=IDENTIFIER '(' args=expression* ')'
+  funName=IDENTIFIER '(' (expression (',' expression)*)? ')'
 ;
 
 

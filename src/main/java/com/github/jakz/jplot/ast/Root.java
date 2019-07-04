@@ -12,6 +12,29 @@ public class Root extends Expression
   }
   
   @Override
+  public Type type()
+  {
+    return expression.type();
+  }
+  
+  @Override
+  public Expression dupe()
+  {
+    return new Root(expression.dupe());
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    return ((o instanceof Root) && ((Root)o).expression.equals(expression));
+  }
+  
+  public Expression expression()
+  {
+    return expression;
+  }
+  
+  @Override
   public String toTeX()
   {
     return expression.toTeX();
@@ -24,7 +47,7 @@ public class Root extends Expression
   }
 
   @Override
-  public Value evaluate(Environment env)
+  public Expression evaluate(Environment env)
   {
     return expression.evaluate(env);
   }

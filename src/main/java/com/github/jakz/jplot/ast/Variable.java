@@ -14,10 +14,23 @@ public class Variable extends Expression
   public String name() { return name; }
   
   @Override
-  public Value evaluate(Environment env)
+  public Expression dupe()
+  {
+    return new Variable(name);
+  }
+  
+  @Override
+  public Type type()
+  {
+    //TODO
+    return null;
+  }
+  
+  @Override
+  public Number evaluate(Environment env)
   {
     //TODO: if env has value for variable then return value otherwise unresolved term
-    return new Value(0);
+    return new Number(0);
   }
 
   @Override

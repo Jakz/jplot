@@ -14,7 +14,7 @@ public class PrintVisitor extends Visitor
     indent -= 2;
   }
   
-  @Override public void visit(Value value)
+  @Override public void visit(Number value)
   {
     System.out.printf("%" + indent + "s%s\n", "", value.value().toString());
   }

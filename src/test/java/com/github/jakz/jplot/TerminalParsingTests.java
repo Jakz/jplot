@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.github.jakz.jplot.ast.Value;
+import com.github.jakz.jplot.ast.Number;
 import com.github.jakz.jplot.ast.Variable;
 import com.github.jakz.jplot.parser.ParseException;
 

@@ -10,10 +10,11 @@ public class Operator
   public final BiFunction<Environment, Expression[], Expression> function;
   public final Function<Expression[], String> renderer;
   public final int args;
+  public Type returnType;
   public final boolean commutative;
   public final String name;
   
-  public Operator(String name, int args, boolean commutative, BiFunction<Environment, Expression[], Expression> function, Function<Expression[], String> renderer)
+  public Operator(String name, Type returnType, int args, boolean commutative, BiFunction<Environment, Expression[], Expression> function, Function<Expression[], String> renderer)
   {
     this.function = function;
     this.args = args;
@@ -22,9 +23,14 @@ public class Operator
     this.renderer = renderer;
   }
   
-  public Operator(String name, int args, boolean commutative, BiFunction<Environment, Expression[], Expression> function)
+  public Operator(String name, Type returnType, int args, boolean commutative, BiFunction<Environment, Expression[], Expression> function)
   {
-    this(name, args, commutative, function, o -> "");
+    this(name, returnType, args, commutative, function, o -> "");
+  }
+  
+  public Type type()
+  {
+    return returnType;
   }
   
   @Override

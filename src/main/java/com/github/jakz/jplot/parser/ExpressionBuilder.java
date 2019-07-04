@@ -11,7 +11,8 @@ import com.github.jakz.jplot.ast.Expression;
 import com.github.jakz.jplot.ast.Operation;
 import com.github.jakz.jplot.ast.Operator;
 import com.github.jakz.jplot.ast.Operators;
-import com.github.jakz.jplot.ast.Value;
+import com.github.jakz.jplot.ast.Root;
+import com.github.jakz.jplot.ast.Number;
 import com.github.jakz.jplot.ast.Variable;
 
 public class ExpressionBuilder
@@ -19,9 +20,9 @@ public class ExpressionBuilder
   public static class Visitor extends LanguageBaseVisitor<Expression>
   {
     @Override
-    public Value visitInteger(LanguageParser.IntegerContext ctx)
+    public Number visitInteger(LanguageParser.IntegerContext ctx)
     {
-      return new Value(Integer.valueOf(ctx.INTEGER().getText()));
+      return new Number(Integer.valueOf(ctx.INTEGER().getText()));
     }
         
     @Override
@@ -51,7 +52,7 @@ public class ExpressionBuilder
         throw new ParseException("Unknown function: "+ctx.funName.getText());
       }
 
-      Expression[] args = ctx.args.expression().stream().map(this::visit).toArray(i -> new Expression[i]);
+      Expression[] args = ctx.expression().stream().map(this::visit).toArray(i -> new Expression[i]);
       
       return new Operation(op, args);
     }
@@ -86,6 +87,7 @@ public class ExpressionBuilder
     @Override
     public Expression visitStart(LanguageParser.StartContext ctx)
     {
+      //return new Root(visit(ctx.expression()));
       return visit(ctx.expression());
     }
   }
