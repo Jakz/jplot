@@ -67,5 +67,10 @@
 		  <artifactId>jlatexmath</artifactId>
 		  <version>1.0.7</version>
 		</dependency> 
+		<dependency>
+		    <groupId>org.apfloat</groupId>
+		    <artifactId>apfloat</artifactId>
+		    <version>1.8.3</version>
+		</dependency>		
   </dependencies>
 </project>

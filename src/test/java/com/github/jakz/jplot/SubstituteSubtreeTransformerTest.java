@@ -23,6 +23,6 @@ public class SubstituteSubtreeTransformerTest
   @Test
   public void testWholeExpressionAsOperator()
   {
-    assertEquals(of("x"), of("substitute(y, y, x)"));
+    assertEquals(of("x"), of("substitute(y, y, x)").operation().apply());
   }
 }

@@ -13,6 +13,7 @@ expression
   | left=expression bop=('*' | '/') right=expression 
   | <assoc=right> left=expression bop='^' right=expression
   | uop='-' unary=expression
+  | unary=expression uop='!' 
   | terminal
 ;
 

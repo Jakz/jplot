@@ -6,8 +6,12 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   BaseOperatorParsingTests.class,
+  FreeOfMetaOperatorTest.class,
+  FunctionCallParsingTests.class,
+  MathFunctionTests.class,
+  SimplificationTests.class,
+  SubstituteSubtreeTransformerTest.class,
   TerminalParsingTests.class,
-  FunctionCallParsingTests.class
 })
 public class TestSuite
 {

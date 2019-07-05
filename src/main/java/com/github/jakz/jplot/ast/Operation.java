@@ -30,6 +30,12 @@ public class Operation extends Expression
   public Operator operator() { return operator; }
   public Expression[] operands() { return operands; }
   
+  public Expression apply()
+  {
+    //TODO: env is null
+    return operator.apply(null, operands);
+  }
+  
   @Override public Expression dupe()
   {
     return new Operation(operator, Arrays.stream(operands).map(Expression::dupe).toArray(i -> new Expression[i]));

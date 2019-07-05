@@ -2,25 +2,27 @@ package com.github.jakz.jplot.ast;
 
 import java.math.BigDecimal;
 
+import org.apfloat.Apfloat;
+
 import com.github.jakz.jplot.cas.Environment;
 
 public class Number extends Expression
 {
-  private BigDecimal value;
+  private Apfloat value;
   
-  public Number(BigDecimal value)
+  public Number(Apfloat value)
   {
     this.value = value;
   }
   
   public Number(long value)
   {
-    this.value = BigDecimal.valueOf(value);
+    this.value = new Apfloat(value);
   }
   
   public Number(double value)
   {
-    this.value = BigDecimal.valueOf(value);
+    this.value = new Apfloat(value);
   }
   
   @Override
@@ -35,7 +37,7 @@ public class Number extends Expression
     return this;
   }
   
-  public BigDecimal value()
+  public Apfloat value()
   {
     return value;
   }

@@ -24,10 +24,17 @@ public abstract class Expression
     return null;
   }
   
+  public Operation operation()
+  {
+    if (this instanceof Operation)
+      return (Operation)this;
+    return null;
+  }
+  
   public Number number()
   {
     if (this instanceof Number)
-      return ((Number)this).number();
+      return ((Number)this);
     return null;
   }
 
@@ -51,6 +58,7 @@ public abstract class Expression
   }
   
   public static Number integral(long value) { return new Number(value); }
+  public static BooleanValue bool(boolean value) { return new BooleanValue(value); }
   public static Number num(long value) { return new Number(value); }
   public static Variable var(String name) { return new Variable(name); }
   public static Expression fun(String name, Expression... operands) { return new Operation(Operators.of(name), operands); }

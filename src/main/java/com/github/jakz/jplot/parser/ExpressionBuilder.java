@@ -79,7 +79,13 @@ public class ExpressionBuilder
         //return new Operation(Operators.of(ctx.op.getText()), ctx.expression().stream().map(this::visit).toArray(i -> new Expression[i]));
         return new Operation(Operators.of(ctx.bop.getText()), new Expression[] { visit(ctx.left), visit(ctx.right) });
       else if (ctx.uop != null)
-        return new Operation(Operators.NEGATION, new Expression[] { visit(ctx.expression(0)) });
+      {
+        if (ctx.uop.getText().equals("-"))
+          return new Operation(Operators.NEGATION, new Expression[] { visit(ctx.unary) });
+        else
+          return new Operation(Operators.of(ctx.uop.getText()), new Expression[] { visit(ctx.unary) });
+
+      }
       else
         throw new ParseException("Invalid expression parse node");
     }
