@@ -30,12 +30,14 @@ functionCall:
 
 literal  
   : IDENTIFIER 
+  | SUBTREE
   | WRONG_IDENTIFIER 
   | integer 
 ;
 
 integer : INTEGER ;
 
+SUBTREE : '\\' (LETTER)+ ;
 IDENTIFIER : (LETTER|GREEK_LETTER) (LETTER|GREEK_LETTER|DIGIT|'_')* ;
 INTEGER : DIGIT+ ;
 

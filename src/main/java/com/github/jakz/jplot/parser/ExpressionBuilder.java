@@ -12,6 +12,7 @@ import com.github.jakz.jplot.ast.Operation;
 import com.github.jakz.jplot.ast.Operator;
 import com.github.jakz.jplot.ast.Operators;
 import com.github.jakz.jplot.ast.Root;
+import com.github.jakz.jplot.ast.Subtree;
 import com.github.jakz.jplot.ast.Number;
 import com.github.jakz.jplot.ast.Variable;
 
@@ -32,6 +33,8 @@ public class ExpressionBuilder
         return visit(ctx.integer());
       else if (ctx.IDENTIFIER() != null)
         return new Variable(ctx.getText());
+      else if (ctx.SUBTREE() != null)
+        return new Subtree(ctx.getText().substring(1));
       else if (ctx.WRONG_IDENTIFIER() != null)
         throw new ParseException("Invalid identifier: "+ctx.getText());
       else
