@@ -2,7 +2,9 @@ package com.github.jakz.jplot;
 
 import static com.github.jakz.jplot.ast.Expression.*;
 import static com.github.jakz.jplot.parser.ExpressionBuilder.of;
+import static com.github.jakz.jplot.parser.ExpressionBuilder.ofd;
 import static org.junit.Assert.assertEquals;
+
 
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class MathFunctionTests
   @Test
   public void testBinomial()
   {
-    assertEquals(of("n! / (k! * (n - k)!)"), of("binomial(n,k)").operation().apply());
+    assertEquals(of("n! / (k! * ((n - k)!) )"), of("binomial(n,k)").operation().apply());
     
     
     assertEquals(num(10), of("binomial(0,0)").evaluate(null));

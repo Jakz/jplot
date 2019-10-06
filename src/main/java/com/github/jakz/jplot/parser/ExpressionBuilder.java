@@ -11,6 +11,7 @@ import com.github.jakz.jplot.ast.Expression;
 import com.github.jakz.jplot.ast.Operation;
 import com.github.jakz.jplot.ast.Operator;
 import com.github.jakz.jplot.ast.Operators;
+import com.github.jakz.jplot.ast.PrintVisitor;
 import com.github.jakz.jplot.ast.Root;
 import com.github.jakz.jplot.ast.Subtree;
 import com.github.jakz.jplot.ast.Number;
@@ -130,7 +131,14 @@ public class ExpressionBuilder
     LanguageParser.StartContext context = parser.start();
     
     
-    return new Visitor().visit(context);
+    Expression result = new Visitor().visit(context);
+    
+    if (debug)
+    {
+      result.accept(new PrintVisitor());
+    }
+    
+    return result;
   }
   
   public static Expression of(String input)

@@ -111,6 +111,8 @@ public class Operators
         
         // n! / (k! * (n-k)!)
         
+        // (n 0) == (n n) == 1
+        
         return Expression.div(
             Expression.fun("!", n),
             Expression.mul(
